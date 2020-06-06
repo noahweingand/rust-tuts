@@ -1,0 +1,27 @@
+Cargo is Rust's build system and package manager. (similar to npm for Node)
+Create new cargo project:
+    cargo new hello_cargo
+A new cargo project entails: a git ignore, a toml file, and a main rust file.
+    - TOML - Tom's Obvious, Minimal Language (Cargo's config format)
+        - [package] indicates the following statements are configuring a package.
+          The next four lines set the config info Cargo needs to compile your program:
+            - name, version, who wrote it, and edition of Rust to use
+        - [dependencies] lists dependencies of project. Packages of code are referred to as crates.
+        
+    - Cargo expects your source files to live in 'src' folder. 
+Building a cargo project:
+    cargo build (in directory)
+        - this creates an executable file that can be ran
+            ./target/debug/hello_cargo
+    cargo run
+        - this will compile and run the executable in one command
+    cargo check
+        - checks code is compiled, but doesn't produce an executable
+        - use this to check code, instead of constantly building an executable over and over
+Building for release:
+    cargo build --release
+        - creates an executable in target/release
+        - makes Rust code run faster
+
+Cargo is more worth it when your programs become more intricate. 
+git clone > cd folder > cargo build
