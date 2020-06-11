@@ -1,0 +1,64 @@
+Chapter 3 of Rust Book - Common Programming Concepts
+
+Variables and Mutability
+- Variables are immutable by default. You still have the option to make variables mutable. You will get 
+  compile-time error if you try to change an immutable variable. 
+- There are constants in Rust. You can't use 'mut' with constants. You declare constants using the 'const' keyword.
+  Constants must be type-annotated and can be declared in any scope. They can't be set to a function call or
+  any other value found at compile-time. Same naming convention as most languages (ex: THE_CONSTANT).
+
+Shadowing
+- Declaring a variable using the same name as a previous variable. The new variable "shadows" the previous variable.
+  Shadowing is merely just creating a new variable (change value or type, but reuse the same name). Prevents us
+  from having multiple variable name referring to the same thing (i.e. userInput_str or userInput_num).
+  Trying to change the type on a mutable variable will throw an error. 
+
+Data Types
+- Two data type subsets: scalar and compound
+    - scalar: represents a single value.
+      - 4 types: integers, floating-point, Booleans, and characters
+    - compound: group mulitple values into one type
+      - 2 types: tuples and arrays
+- Rust is a statically typed language (must know types of all variables at compile time).
+- In cases where many types are possible, we must add a type annotation:
+    Ex: let guess: u32 = "42".parse().expect("Not a number!");
+- integers: specify the signed or unsigned and then the bit space (i32, u64)
+  - signed/unsigned refer value needs negative sign or if it can just be positive
+  - integer literals:
+      - decimal -> ex: 98_222
+      - hex -> ex: 0xff
+      - binary -> 0b1111_0000
+  - floating-point type:
+    - ex: f32
+  - Boolean
+    - let f: bool = false;
+  - character type
+    - same as other languages
+  - tuples
+    - fixed length: once declared, they cannot grow or shrink in size
+    - Separating a tup into variables is called destructuring since it breaks the tuple into 3 parts.
+    - You can also access a tuple directly
+  - arrays
+    - every element must have same type
+    - have fixed length
+    - Useful for when data is wanted on the stack rather than the heap
+    - A vector (provided by the standard library) is similar to an array but is allowed
+      to grow and shrink in size.
+
+Functions
+  - naming convention: snake_case (all lowercase, separated by underscores)
+  - Rust doesn't care if you define functions before or after main
+  - can have return values
+
+Control Flow
+  - if expressions
+    - if, else if, else syntax (like most other languages)
+  - loops
+    - refer to code
+
+TO DO:
+Convert temperatures between Fahrenheit and Celsius.
+Generate the nth Fibonacci number.
+Print the lyrics to the Christmas carol “The Twelve Days of Christmas,” taking advantage of the repetition in the song.
+    
+
