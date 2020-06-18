@@ -1,0 +1,65 @@
+Chapter 4 - Understanding Ownership
+
+Ownership is Rust's most unique feature, and it enables Rust to make memory safety guarantees
+without needing a garbage collector. 
+
+4.1 What is Ownership?
+    - All programs manage the way they use a computer's memory while running. Some languages
+      have garbage collection that constantly looks for no longer used memory as the programs
+      runs; others, the programmer must explicity allocate and free the memory. 
+    - Rust's memory is managed through a system of ownership with a set of rules that the compiler
+      checks at compile time. None of the ownership features slow down your program while it's
+      running.
+
+The Stack and the Heap
+    - In most programming languages, you don't have to think about the stack and heap. In Rust,
+      whether a value is on the stack or the heap has more of an effect on how the language 
+      behaves and why you have to make certain decisions.
+    - The stack stores values in the order it gets them and removes the values in the opposite
+      order (LIFO). All data stored on stack must have a known, fixed size.
+    - Data with an unknown size at compile time or a size that might change must be stored on the
+      heap instead. The heap is less organized: when you put data on the heap, you request a
+      certain amount of space. The OS finds an empty spot in the heap that's big enough, marks
+      it as being in use, and returns a pointer, which is the address of that location. This
+      process is called 'allocating on the heap'. The pointer is a known, fixed size so you
+      can store the pointer on the stack. When you want the actual data, you must follow
+      the pointer.
+    - Pushing to the stack is faster than allocating on the heap because the OS never has to
+      search for a place to store new data; that location is always at the top of the stack.
+      Comparatively, allocating space on the heap requires more work, because the OS must
+      first find a big enough space to hold the data and then perform bookkeeping to prepare
+      for the next allocation. 
+    - Accessing data in the heap is slower than accessing data on the stack because you
+      have to follow a pointer to get there.
+
+Ownership Rules 
+    1. Each value in Rust has a variable that's called its owner.
+    2. There can only be one owner at a time.
+    3. When the owner goes out of scope, the value will be dropped.
+
+    - Scope: range within a program for which an item is valid (nothing new here).
+    - All types covered previously are all stored on the stack and popped when scope is over.
+    - We'll look at Strings.
+    - String literals aren't suitable for every situation when using text. One reason is that
+      they're immutable. Another is that not every string value can be known when we write
+      our code (i.e. user input).
+    - There is a second string type, String. This type is allocated on the heap and can store
+      an amount of text that's unknown at compile time. These kind of strings can be mutated.
+
+Memory and Allocation 
+    - string literals are known at compile time which is why they're fast and efficient. Those
+      properties come from its immutability. Using String, we need to allocate an amount of memory
+      on the heap, unknown at compile time, to hold the contents. Which means: The memory must
+      be requested from the OS at runtime, AND we need a way of returning this memory to the OS
+      when we're done with our String. Without a garbage collector, we have to manage 
+      memory ourselves. 
+    - Memory is automatically returned once the variable that owns it goes out of scope.
+    - Know of the 'double free' memory bug (referenced in this chapter's code).
+    - Know of 'moving' data from variables. Rust will never automatically create "deep" copies
+      of your data. Therefore, any automatic copying can be assumed to be inexpensive in terms
+      of runtime performance. 
+    - If we do want a "deep" copy of a String on the heap data, not just the stack data, we can
+      use 'clone'.
+    
+    - With functions, passing strings into functions moves them out of scope of where they were.
+      With integers, they remain in scope.
