@@ -2,6 +2,15 @@ fn calculate_length(s: String) -> (String, usize) {
     let length = s.len();
     (s, length) //returning multiple values in a tuple
 }
+
+fn calculate_length2(s: &String) -> usize {
+    s.len()
+}
+
+fn change(a_string: &mut String) {
+    a_string.push_str("I'd rather die before I come in last...");
+}
+
 fn main() {
     // Ownership
     
@@ -33,5 +42,14 @@ fn main() {
 
     // References
 
+    let s6 = String::from("reference example");
+    let len = calculate_length2(&s6);
+    println!("The length of '{}' is {}.", s6, len);
+
+    //Mutable References
+
+    let mut s7 = String::from("no cap and gown, i ain't go to class...");
+    change(&mut s7);
+    println!("{}",s7);
 } 
 // s is out of scope here

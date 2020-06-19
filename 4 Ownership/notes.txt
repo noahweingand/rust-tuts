@@ -63,3 +63,33 @@ Memory and Allocation
     
     - With functions, passing strings into functions moves them out of scope of where they were.
       With integers, they remain in scope.
+
+Mutable References
+  - You can only have one mutable reference per scope. This allows for mutation in a very
+    controlled fashion. The benefit is that Rust can prevent data races at compile time.
+  - Race condition happens when:
+    1. Two or more pointers access the same data at the same time.
+    2. At least one of the pointers is being used to write to the data.
+    3. There's no mechanism being used to synchronize access to the data.
+  - Data races cause undefined behavior and can be difficult to diagnose and fix when you're
+    trying to track them down at runtime.
+  - You can use curly brackets to create a new scope, allowing for multiple mutable References
+  - You cannot combine mutable and immutable references in the same scope.
+  - Note that a reference's scope starts from where it is introduced and continues through
+    the last time that reference is used.
+    Ex:
+        let r1 = &s;
+        let r2 = &s;
+        println!("{} and {}", r1,r2);
+        let r3 = &mut s;
+
+Dangling References
+- This is a pointer that references a location in memory that may have been given to someone
+  else, by freeing some memory while preserving a pointer to that memory. Rust's compiler 
+  guarantees that references will never be dangling references: if you have a reference
+  to some data, the compiler will ensure that the data will not go out of scope before
+  the reference to the data does.
+
+The Slice Type
+- Another data type that does not have ownership is the slice. Slices let you reference a
+  contiguous sequence of elements in a collection rather than the whole collection.
